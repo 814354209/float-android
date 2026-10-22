@@ -124,6 +124,8 @@ export type ApiConfig = {
     apiKey: string;
     baseUrl?: string;
     defaultModel: string;
+    /** Optional extra HTTP headers as a JSON object string, merged into every LLM request. */
+    customHeaders?: string;
     enableNativeTools?: boolean;
     enableImageRecognition: boolean;
     enableImageGeneration: boolean;
