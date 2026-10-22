@@ -426,7 +426,19 @@ export function ApiSettings() {
                                             </div>
                                         </div>
 
-                                        <div className="flex gap-3 mt-1">
+                                                                                <div className="flex flex-col gap-1">
+                                            <label className="menu-desc ml-1">自定义请求头 (Custom Headers，可选)</label>
+                                            <textarea
+                                                value={config.customHeaders || ""}
+                                                onChange={(e) => updateConfig(config.id, { customHeaders: e.target.value })}
+                                                placeholder={'JSON 格式，例如：\n{"User-Agent": "my-agent/1.0", "x-opencode-session": "abc123"}'}
+                                                rows={3}
+                                                className="ui-input"
+                                                style={{ fontFamily: "monospace", fontSize: "0.9em", lineHeight: 1.5 }}
+                                            />
+                                            <span className="menu-desc ml-1" style={{ opacity: 0.7 }}>填 JSON 格式，留空则不添加</span>
+                                        </div>
+<div className="flex gap-3 mt-1">
                                             <button
                                                 onClick={() => fetchModels(config)}
                                                 disabled={isFetching[config.id]}
