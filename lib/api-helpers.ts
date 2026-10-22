@@ -65,6 +65,23 @@ export function buildRequestHeaders(config: ApiConfig, baseUrl: string): Record<
         headers["X-Title"] = "AI Virtual Phone";
     }
 
+    // User-defined extra headers (JSON object string). Merged last so they can
+    // override defaults, e.g. a custom User-Agent or a relay-required header.
+    if (config.customHeaders) {
+        try {
+            const extra = JSON.parse(config.customHeaders) as Record<string, unknown>;
+            if (extra && typeof extra === "object" && !Array.isArray(extra)) {
+                for (const [key, value] of Object.entries(extra)) {
+                    if (typeof key === "string" && key.trim() && value !== undefined && value !== null) {
+                        headers[key.trim()] = String(value);
+                    }
+                }
+            }
+        } catch {
+            // Ignore malformed JSON and keep the default headers.
+        }
+    }
+
     return headers;
 }
 
